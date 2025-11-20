@@ -7,8 +7,8 @@
             <footer>
               <small>
                 <em
-                  >&mdash; Every great film should seem new every time you see it.
-                  - Roger Ebert</em
+                  >&mdash; A room without books is like a body without a soul.
+                  - Cicero</em
                 >
               </small>
             </footer>
@@ -30,10 +30,9 @@
               </div>
               <div class="col-md-6">
                 <div class="card-body">
-                  <h5 class="card-title">Books</h5>
+                  <h5 class="card-title">Browse our Books!</h5>
                   <p class="card-text">
-                    View descriptions and ratings of books you
-                    are intersting in watching. 
+                    Search for, view, and check out books you find interesting
                   </p>
                    <a v-if="this.authenticated === 'true'" @click="viewMovies" class="btn btn-primary">View Details</a>
                    <a v-else @click="login" class="btn btn-primary">Login to View Details</a>
