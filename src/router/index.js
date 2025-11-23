@@ -3,6 +3,8 @@ import { createRouter, createWebHistory } from 'vue-router'
  import BookList from '../components/BookList'
  import Auth from '../components/Auth'
  import Register from '../components/Register'
+ import MyLoans from '../views/MyLoans.vue'
+ import AddBook from '../views/AddBook.vue'
 
  
 const routes = [
@@ -25,7 +27,18 @@ const routes = [
      path:'/register',
      name: 'Register',
      component: Register
+   },
+   {
+    path: '/my-loans',
+    name: 'MyLoans',
+    component: MyLoans
+   },
+   {
+    path: '/book-create',
+    name: 'AddBook',
+    component: AddBook
    }
+
 
 
  ]

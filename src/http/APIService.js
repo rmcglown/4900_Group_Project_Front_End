@@ -20,27 +20,6 @@ export class APIService {
     return axios.get(url, {headers: headers});
   }
 
-  addNewMovie(movie){
-    const url = `${API_URL}/api/movies/`;
-    let jwtToken = localStorage.getItem('access');
-    const headers = {Authorization: `JWT ${jwtToken}`};
-    return axios.post(url, movie, {headers: headers});
-  }
-
-  updateMovie(formData){
-    const url = `${API_URL}/api/movies/${formData.get("pk")}`;
-    let jwtToken = localStorage.getItem('access');
-    const headers = {Authorization: `JWT ${jwtToken}`};
-    return axios.put(url, formData, {headers: headers});
-  }
-
-  deleteMovie(movie_Pk){
-    const url = `${API_URL}/api/movies/${movie_Pk}`;
-    let jwtToken = localStorage.getItem('access');
-    const headers = {Authorization: `JWT ${jwtToken}`};
-    return axios.delete(url, {headers: headers});
-  }
-
   authenticateLogin(credentials) {
     const url = `${API_URL}/api/`;
     return axios.post(url, credentials);
@@ -50,5 +29,19 @@ export class APIService {
      const url = `${API_URL}/register/`;
      credentials.customusername = credentials.username
      return axios.post(url, credentials);
+  }
+
+  getMyLoans() {
+    const url = `${API_URL}/api/loans/mine/`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = { Authorization: `JWT ${jwtToken}` };
+    return axios.get(url, { headers: headers });
+  }
+
+  addNewBook(bookData) {
+    const url = `${API_URL}/api/books/`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = {Authorization: `JWT ${jwtToken}`};
+    return axios.post(url, bookData, {headers: headers});
   }
 }
