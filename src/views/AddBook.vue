@@ -20,6 +20,16 @@
       </div>
 
       <div>
+        <label class="block font-medium">Genre</label>
+        <input v-model="genre" type="text" class="border p-2 w-full" required />
+      </div>
+
+      <div>
+        <label class="block font-medium">Publication Date</label>
+        <input v-model="publication_date" type="Date" class="border p-2 w-full" required />
+      </div>
+
+      <div>
         <label class="block font-medium">ISBN</label>
         <input v-model="isbn" type="text" class="border p-2 w-full" required />
       </div>
@@ -49,6 +59,8 @@ export default {
       title: "",
       author: "",
       description: "",
+      genre: "",
+      publication_date: "",
       isbn: "",
       success: false,
       error: null,
@@ -63,6 +75,8 @@ export default {
         title: this.title,
         author: this.author,
         description: this.description,
+        genre: this.genre,
+        publication_date: this.publication_date,
         isbn: this.isbn
       };
 
@@ -73,6 +87,8 @@ export default {
         this.title = "";
         this.author = "";
         this.description = "";
+        this.genre = "";
+        this.publication_date = "";
         this.isbn = "";
 
       } catch (err) {

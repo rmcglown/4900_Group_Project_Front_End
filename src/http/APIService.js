@@ -44,4 +44,19 @@ export class APIService {
     const headers = {Authorization: `JWT ${jwtToken}`};
     return axios.post(url, bookData, {headers: headers});
   }
+
+  updateBook(formData){
+    const url = `${API_URL}/api/books/${formData.get("pk")}`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = {Authorization: `JWT ${jwtToken}`};
+    return axios.put(url, formData, {headers: headers});
+  }
+
+  deleteBook(book_Pk){
+    const url = `${API_URL}/api/books/${book_Pk}`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = {Authorization: `JWT ${jwtToken}`};
+    return axios.delete(url, {headers: headers});
+  }
+
 }
