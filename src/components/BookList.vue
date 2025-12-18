@@ -90,7 +90,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="book in books" :key="book">
+                    <tr v-for="book in books" v-bind:key="book">
                         <th scope="row">{{ book.title }}</th>
                         <td>{{ book.author }}</td>
                         <td>

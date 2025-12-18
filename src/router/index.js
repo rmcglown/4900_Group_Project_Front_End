@@ -5,6 +5,7 @@ import { createRouter, createWebHistory } from 'vue-router'
  import Register from '../components/Register'
  import MyLoans from '../views/MyLoans.vue'
  import AddBook from '../views/AddBook.vue'
+ import BookDetails from "@/components/BookDetail.vue"
 
  
 const routes = [
@@ -36,11 +37,6 @@ const routes = [
    {
     path: '/book-create',
     name: 'AddBook',
-    component: AddBook
-   },
-   {
-    path: '/book-create/:pk',
-    name: 'EditBook',
     component: AddBook
    }
 
