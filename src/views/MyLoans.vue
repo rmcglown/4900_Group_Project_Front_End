@@ -1,66 +1,78 @@
 <template>
-  <div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">My Loaned Books</h1>
+  <div class="page">
+    <h1>My Loaned Books</h1>
 
-    <div v-if="loading">Loading your loans...</div>
-    <div v-if="error" class="text-red-600">{{ error }}</div>
+    <p v-if="loading">Loading your loans...</p>
+    <p v-else-if="error" class="error">{{ error }}</p>
+    <p v-else-if="loans.length === 0">You currently have no books on loan.</p>
 
-    <table v-if="!loading && loans.length > 0" class="table-auto w-full mt-4 border">
+    <table v-else class="table">
       <thead>
-        <tr class="bg-gray-100">
-          <th class="p-2 border">Title</th>
-          <th class="p-2 border">Author</th>
-          <th class="p-2 border">Check Out Date</th>
-          <th class="p-2 border">Due Date</th>
-          <th class="p-2 border">Fines</th>
+        <tr>
+          <th>Loan ID</th>
+          <th>Copy ID</th>
+          <th>Due Date</th>
+          <th>Status</th>
+          <th>Fine Paid</th>
+          <th>Fine Paid Amount</th>
+          <th>Outstanding Fine</th>
         </tr>
       </thead>
-      <tbody>
-        <tr v-for="loan in loans" :key="loan.pk" class="text-center">
-          <td class="p-2 border">{{ loan.title }}</td>
-          <td class="p-2 border">{{ loan.author }}</td>
-          <td class="p-2 border">{{ loan.loan_date }}</td>
-          <td class="p-2 border">{{ loan.due_date }}</td>
-          <td class="p-2 border">
-            <span v-if="loan.outstanding_fine > 0"> 
-              ${{loan.outstanding_fine.toFixed(2)}}
-            </span>
-            <span v-else>
-              -
-            </span>
-          </td>
 
+      <tbody>
+        <tr v-for="loan in loans" :key="loan.pk">
+          <td>{{ loan.pk }}</td>
+          <td>{{ loan.copy }}</td>
+          <td>{{ loan.due_date }}</td>
+          <td>{{ loan.status }}</td>
+          <td>{{ loan.fine_paid ? "Yes" : "No" }}</td>
+          <td>${{ money(loan.fine_paid_amount) }}</td>
+          <td>${{ money(loan.outstanding_fine) }}</td>
         </tr>
       </tbody>
     </table>
-
-    <div v-if="!loading && loans.length === 0">
-      You currently have no books on loan.
-    </div>
   </div>
 </template>
 
 <script>
-import {APIService} from "../http/APIService";
+import { APIService } from "@/http/APIService";
 
 export default {
   name: "MyLoans",
   data() {
     return {
       loans: [],
-      loading: true,
-      error: null,
+      loading: false,
+      error: "",
+      api: new APIService(),
     };
   },
-  async created() {
-    try {
-      const response = await APIService.getMyLoans();
-      this.loans = response;
-    } catch (err) {
-      this.error = "Failed to fetch loaned books.";
-    } finally {
-      this.loading = false;
-    }
+  async mounted() {
+    await this.loadLoans();
+  },
+  methods: {
+    money(v) {
+      const n = Number(v);
+      if (Number.isNaN(n)) return "0.00";
+      return n.toFixed(2);
+    },
+    async loadLoans() {
+      this.loading = true;
+      this.error = "";
+      try {
+        const res = await this.api.getMyLoans();
+        // backend returns { data: [...] }
+        this.loans = res.data?.data ?? [];
+      } catch (err) {
+        console.error(err);
+        this.error =
+          err?.response?.data?.detail ||
+          "Failed to fetch loaned books.";
+        this.loans = [];
+      } finally {
+        this.loading = false;
+      }
+    },
   },
 };
 </script>

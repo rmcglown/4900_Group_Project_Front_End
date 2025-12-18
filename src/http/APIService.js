@@ -38,6 +38,19 @@ export class APIService {
     return axios.get(url, { headers: headers });
   }
 
+  getMyFines() {
+    const url = `${API_URL}/my-fines/`;
+    return axios.get(url, { headers: this.authHeaders() });
+  }
+
+
+  payFine(loanId) {
+  const url = `${API_URL}/api/loans/${loanId}/pay_fine/`;
+  let jwtToken = localStorage.getItem('access');
+  const headers = { Authorization: `JWT ${jwtToken}` };
+  return axios.post(url, {}, { headers: headers });
+  }
+
   addNewBook(bookData) {
     const url = `${API_URL}/api/books/`;
     let jwtToken = localStorage.getItem('access');
