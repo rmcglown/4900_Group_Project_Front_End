@@ -38,8 +38,13 @@ const routes = [
     path: '/book-create',
     name: 'AddBook',
     component: AddBook
+   },
+   {
+    path: "/book-detail/:id",
+    name: "BookDetail",
+    component: () => import("@/components/BookDetail.vue"),
+    props: true
    }
-
 
 
  ]

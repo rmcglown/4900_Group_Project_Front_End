@@ -91,7 +91,11 @@
                     </thead>
                     <tbody>
                     <tr v-for="book in books" v-bind:key="book">
-                        <th scope="row">{{ book.title }}</th>
+                        <th scope="row">
+                            <router-link :to="`/book-detail/${book.pk}`">
+                                {{ book.title }}
+                            </router-link>
+                        </th>
                         <td>{{ book.author }}</td>
                         <td>
                         <div v-if="book.book_image" class="book-image">
