@@ -7,7 +7,7 @@ export class APIService {
   }
 
   getBook(param_pk) {
-    const url = `${API_URL}/api/books/${param_pk}`;
+    const url = `${API_URL}/api/books/${param_pk}/`;
     let jwtToken = localStorage.getItem('access');
     const headers = {Authorization: `JWT ${jwtToken}`};
     return axios.get(url, {headers: headers});
