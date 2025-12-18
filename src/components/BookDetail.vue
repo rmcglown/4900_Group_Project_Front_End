@@ -2,7 +2,7 @@
   <div class="container mt-4" v-if="book">
     <h2>{{ book.title }}</h2>
 
-    <p><strong>Author:</strong> {{ book.author }}</p>
+    <p><strong>Author:</strong> {{ book.author_name }}</p>
     <p><strong>Genre:</strong> {{ book.genre }}</p>
     <p><strong>Publication Date:</strong> {{ book.publication_date }}</p>
 
