@@ -64,4 +64,20 @@ export class APIService {
     const headers = {Authorization: `JWT ${jwtToken}`};
     return axios.delete(url, {headers: headers});
   }
+  getBookCopies(bookId) {
+  const url = `${API_URL}/api/books/${bookId}/copies/`;
+  let jwtToken = localStorage.getItem('access');
+  const headers = { Authorization: `JWT ${jwtToken}` };
+  return axios.get(url, { headers });
+  }
+
+  checkoutCopy(copyId) {
+    const url = `${API_URL}/api/copies/${copyId}/checkout/`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = { Authorization: `JWT ${jwtToken}` };
+    return axios.post(url, {}, { headers });
+  }
+
+
+
 }

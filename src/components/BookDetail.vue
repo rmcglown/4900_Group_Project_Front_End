@@ -16,6 +16,38 @@
       </p>
     </div>
 
+    <div class="mt-4">
+      <h5>Available Copies</h5>
+
+      <div v-if="copies.length">
+        <select v-model="selectedCopy" class="form-select mb-2">
+          <option disabled value="">Select a copy</option>
+          <option
+            v-for="copy in copies"
+            :key="copy.id"
+            :value="copy.id"
+            :disabled="!copy.is_available"
+          >
+            Copy {{ copy.copy_number }}
+            <span v-if="!copy.is_available">(Checked out)</span>
+          </option>
+        </select>
+
+        <button
+          class="btn btn-primary"
+          :disabled="!selectedCopy"
+          @click="checkoutCopy"
+        >
+          Checkout
+        </button>
+      </div>
+
+      <p v-else class="text-muted">
+        No copies available for this book.
+      </p>
+    </div>
+
+
     <div v-if="book.book_image">
       <img
         :src="`${URL}${book.book_image}`"
@@ -49,12 +81,15 @@ export default {
   data() {
     return {
       book: null,
+      copies: [],
+      selectedCopy: "",
       URL: API_URL,
     };
   },
 
   mounted() {
     this.getBook();
+    this.getCopies();
   },
 
   methods: {
@@ -67,13 +102,30 @@ export default {
           this.$router.push("/book-list");
         });
     },
+    getCopies() {
+      apiService.getBookCopies(this.id)
+        .then((response) => {
+          this.copies = response.data;
+        })
+        .catch(() => {
+          this.copies =[];
+        });
+    },
+
+    checkoutCopy() {
+      apiService.checkoutCopy(this.selectedCopy)
+        .then(() => {
+          alert("Book checked out successfully!");
+          this.selectedCopy = "";
+          this.getCopies();
+        })
+        .catch(() => {
+          alert("Unable to checkout this copy.");
+        });
+    },
   },
 };
 </script>
 
-mounted() {
-  console.log("Route params:", this.$route.params);
-  console.log("ID prop:", this.id);
-  this.getBook();
-}
+
 
