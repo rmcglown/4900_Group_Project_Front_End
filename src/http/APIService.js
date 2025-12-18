@@ -7,7 +7,7 @@ export class APIService {
   }
 
   getBook(param_pk) {
-    const url = `${API_URL}/api/books/${param_pk}`;
+    const url = `${API_URL}/api/books/${param_pk}/`;
     let jwtToken = localStorage.getItem('access');
     const headers = {Authorization: `JWT ${jwtToken}`};
     return axios.get(url, {headers: headers});
@@ -46,17 +46,22 @@ export class APIService {
   }
 
   updateBook(formData){
-    const url = `${API_URL}/api/books/${formData.get("pk")}`;
+    const url = `${API_URL}/api/books/${formData.get("pk")}/`;
     let jwtToken = localStorage.getItem('access');
     const headers = {Authorization: `JWT ${jwtToken}`};
     return axios.put(url, formData, {headers: headers});
   }
 
   deleteBook(book_Pk){
-    const url = `${API_URL}/api/books/${book_Pk}`;
+    const url = `${API_URL}/api/books/${book_Pk}/`;
     let jwtToken = localStorage.getItem('access');
     const headers = {Authorization: `JWT ${jwtToken}`};
     return axios.delete(url, {headers: headers});
   }
-
+  getCurrentUser(){
+    const url = `${API_URL}/api/me/`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = {Authorization: `JWT ${jwtToken}`};
+    return axios.delete(url, {headers: headers});
+  }
 }

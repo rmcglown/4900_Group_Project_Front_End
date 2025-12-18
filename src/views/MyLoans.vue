@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import APIService from "../http/APIService";
+import {APIService} from "../http/APIService";
 
 export default {
   name: "MyLoans",

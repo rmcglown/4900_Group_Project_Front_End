@@ -92,7 +92,17 @@ export default {
         this.isbn = "";
 
       } catch (err) {
-        this.error = "Error: Unable to add book.";
+        if (err.response) {
+          if (err.response.status === 401 || err.response.status === 403){
+            this.error = "You are not authorized to add books.";
+          }else if (err.response.status === 400){
+            this.error = "Invalid book data. Please check your inputs.";
+          }else {
+            this.error = "Unable to add book.";
+          }
+        }else {
+          this.error = "unauthorized.";
+        }
       }
     }
   }

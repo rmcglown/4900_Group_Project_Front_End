@@ -37,6 +37,11 @@ const routes = [
     path: '/book-create',
     name: 'AddBook',
     component: AddBook
+   },
+   {
+    path: '/book-create/:pk',
+    name: 'EditBook',
+    component: AddBook
    }
 
 
