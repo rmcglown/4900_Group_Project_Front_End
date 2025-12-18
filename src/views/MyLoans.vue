@@ -10,14 +10,26 @@
         <tr class="bg-gray-100">
           <th class="p-2 border">Title</th>
           <th class="p-2 border">Author</th>
+          <th class="p-2 border">Check Out Date</th>
           <th class="p-2 border">Due Date</th>
+          <th class="p-2 border">Fines</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="loan in loans" :key="loan.id" class="text-center">
+        <tr v-for="loan in loans" :key="loan.pk" class="text-center">
           <td class="p-2 border">{{ loan.title }}</td>
           <td class="p-2 border">{{ loan.author }}</td>
+          <td class="p-2 border">{{ loan.loan_date }}</td>
           <td class="p-2 border">{{ loan.due_date }}</td>
+          <td class="p-2 border">
+            <span v-if="loan.outstanding_fine > 0"> 
+              ${{loan.outstanding_fine.toFixed(2)}}
+            </span>
+            <span v-else>
+              -
+            </span>
+          </td>
+
         </tr>
       </tbody>
     </table>

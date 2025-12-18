@@ -96,7 +96,7 @@
                                 {{ book.title }}
                             </router-link>
                         </th>
-                        <td>{{ book.author }}</td>
+                        <td>{{ book.author_name }}</td>
                         <td>
                         <div v-if="book.book_image" class="book-image">
                             <p><img :src="`${URL}${book.book_image}`" alt="Book Picture" class="img-thumbnail"/></p>
