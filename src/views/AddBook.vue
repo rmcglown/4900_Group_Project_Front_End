@@ -1,6 +1,6 @@
 <template>
   <div class="p-6">
-    <h1 class="text-2xl font-bold mb-4">Add New Book</h1>
+    <h1 class="text-2xl font-bold mb-4">{{pageTitle}}</h1>
 
     <form @submit.prevent="submitBook" class="space-y-4 max-w-md">
 
@@ -52,10 +52,13 @@
 import { APIService } from "../http/APIService";
 const apiService = new APIService();
 
+
 export default {
   name: "AddBook",
   data() {
     return {
+      pageTitle: "Add New Book",
+      isUpdate: false,
       title: "",
       author: "",
       description: "",
@@ -65,6 +68,28 @@ export default {
       success: false,
       error: null,
     };
+  },
+  mounted() {
+        if (this.$route.params.pk) {
+          this.pageTitle = "Edit Book";
+          this.isUpdate = true;
+          apiService.getBook(this.$route.params.pk).then(response => {
+            const book = response.data;
+            this.title = book.title;
+            this.author = book.author;
+            this.description = book.description;
+            this.genre = book.genre;
+            this.publication_date = book.publication_date;
+            this.isbn = book.isbn;
+          }).catch(error => {
+            if (error.response.status === 401) { // "not authorized"
+              router.push("/auth");
+            }else{
+              this.showMsg = "error";
+              router.push("/auth");
+            }
+          });
+        }
   },
   methods: {
     async submitBook() {
@@ -81,7 +106,11 @@ export default {
       };
 
       try {
-        await apiService.addNewBook(bookData);
+        if (this.isUpdate) {
+          await apiService.updateBook(this.$route.params.pk, bookData);
+        } else {
+          await apiService.addNewBook(bookData);
+        }
         this.success = true;
 
         this.title = "";

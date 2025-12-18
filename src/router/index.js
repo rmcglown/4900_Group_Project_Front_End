@@ -35,7 +35,7 @@ const routes = [
     component: MyLoans
    },
    {
-    path: '/book-create',
+    path: '/book-create/:pk?',
     name: 'AddBook',
     component: AddBook
    },
