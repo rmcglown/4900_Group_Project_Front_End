@@ -35,7 +35,7 @@
           <td>${{ money(loan.fine_paid_amount) }}</td>
           <td>${{ money(loan.outstanding_fine) }}</td>
           <td>
-            <button v-if="loan.status !== 'returned'" @click="returnLoan(loan.pk)" class="btn btn-sm btn-outline-primary">
+            <button v-if="loan.status !== 'returned'" @click="returnLoan(loan.pk)" class="btn btn-primary">
               Return
             </button>
           </td>
