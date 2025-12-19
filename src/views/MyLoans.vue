@@ -11,6 +11,7 @@
         <tr>
           <th>Loan ID</th>
           <th>Copy ID</th>
+          <th>Book Title</th>
           <th>Due Date</th>
           <th>Status</th>
           <th>Fine Paid</th>
@@ -23,6 +24,10 @@
         <tr v-for="loan in loans" :key="loan.pk">
           <td>{{ loan.pk }}</td>
           <td>{{ loan.copy }}</td>
+          <td>
+            <router-link :to="`/book-detail/${loan.book_id}`">
+              {{ loan.book_title }}
+            </router-link></td>
           <td>{{ loan.due_date }}</td>
           <td>{{ loan.status }}</td>
           <td>{{ loan.fine_paid ? "Yes" : "No" }}</td>
