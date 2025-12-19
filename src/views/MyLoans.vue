@@ -17,6 +17,7 @@
           <th>Fine Paid</th>
           <th>Fine Paid Amount</th>
           <th>Outstanding Fine</th>
+          <th>Actions</th>
         </tr>
       </thead>
 
@@ -33,6 +34,11 @@
           <td>{{ loan.fine_paid ? "Yes" : "No" }}</td>
           <td>${{ money(loan.fine_paid_amount) }}</td>
           <td>${{ money(loan.outstanding_fine) }}</td>
+          <td>
+            <button v-if="loan.status !== 'returned'" @click="returnLoan(loan.pk)" class="btn btn-sm btn-outline-primary">
+              Return
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -78,6 +84,19 @@ export default {
         this.loading = false;
       }
     },
+    async returnLoan(loanId) {
+      try {
+        await this.api.returnBook(loanId);
+        alert("Book returned successfully!");
+        await this.loadLoans();
+      } catch (err) {
+        console.error(err);
+        this.error =
+          err?.response?.data?.detail ||
+          "Failed to return loan.";
+        this.loans = [];
+      }
+    }
   },
 };
 </script>

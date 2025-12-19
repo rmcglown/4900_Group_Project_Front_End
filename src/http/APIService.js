@@ -91,6 +91,11 @@ export class APIService {
     return axios.post(url, {}, { headers });
   }
 
-
+  returnBook(loanId) {
+    const url = `${API_URL}/api/loans/${loanId}/return/`;
+    let jwtToken = localStorage.getItem('access');
+    const headers = { Authorization: `JWT ${jwtToken}` };
+    return axios.post(url, {}, { headers });
+  }
 
 }
