@@ -24,12 +24,12 @@
           <option disabled value="">Select a copy</option>
           <option
             v-for="copy in copies"
-            :key="copy.id"
-            :value="copy.id"
-            :disabled="!copy.is_available"
+            :key="copy.pk"
+            :value="copy.pk"
+            :disabled="copy.status !== 'available'"
           >
-            Copy {{ copy.copy_number }}
-            <span v-if="!copy.is_available">(Checked out)</span>
+            Copy {{ copy.pk }}
+            <span v-if="copy.status !== 'available'">(Checked out)</span>
           </option>
         </select>
 

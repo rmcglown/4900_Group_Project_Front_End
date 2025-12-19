@@ -85,7 +85,7 @@ export class APIService {
   }
 
   checkoutCopy(copyId) {
-    const url = `${API_URL}/api/copies/${copyId}/checkout/`;
+    const url = `${API_URL}/api/checkout/${copyId}/`;
     let jwtToken = localStorage.getItem('access');
     const headers = { Authorization: `JWT ${jwtToken}` };
     return axios.post(url, {}, { headers });
